@@ -9,6 +9,6 @@ import java.util.UUID;
 
 @Repository
 public interface MemberRepository extends JpaRepository<Member, UUID> {
-    Iterable<Member> findAllByPoliticalParty(PoliticalParty politicalParty);
     Iterable<Member> findAllByNameAndSurname(String name, String surname);
+    Iterable<Member> findAllByPoliticalParty_Id(UUID id);
 }

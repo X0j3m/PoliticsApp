@@ -14,23 +14,32 @@ public class MemberService {
         this.memberRepository = memberRepository;
     }
 
-    public void save(Member member) {
-        memberRepository.save(member);
+    public UUID create(Member member) {
+        return memberRepository.save(member).getId();
     }
 
-    public Member getById(UUID id){
+    public Member getById(UUID id) {
         return memberRepository.findById(id).orElse(null);
     }
 
-    public Iterable<Member> getAll(){
+    public Iterable<Member> getAll() {
         return memberRepository.findAll();
     }
 
-    public Iterable<Member> findByNameAndSurname(String name, String surname){
+    public Iterable<Member> findByPoliticalPartyId(UUID politicalPartyId) {
+        return memberRepository.findAllByPoliticalParty_Id(politicalPartyId);
+    }
+
+    public Iterable<Member> findByNameAndSurname(String name, String surname) {
         return memberRepository.findAllByNameAndSurname(name, surname);
     }
 
-    public void deleteById(UUID id){
-        memberRepository.deleteById(id);
+    public UUID deleteById(UUID id) {
+        Member m = memberRepository.findById(id).orElse(null);
+        if (m != null) {
+            memberRepository.deleteById(id);
+            return id;
+        }
+        return null;
     }
 }

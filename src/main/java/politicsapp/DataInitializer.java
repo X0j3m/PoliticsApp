@@ -1,5 +1,6 @@
 package politicsapp;
 
+import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Component;
 import politicsapp.model.Member;
 import politicsapp.model.PoliticalParty;
@@ -19,10 +20,11 @@ public class DataInitializer {
         this.memberService = memberService;
     }
 
+    @PostConstruct
     public void init() {
         UUID id;
 
-        id = politicalPartyService.save(
+        id = politicalPartyService.create(
                 PoliticalParty.builder()
                         .id(UUID.randomUUID())
                         .name("Prawo_i_Sprawiedliwość")
@@ -30,7 +32,7 @@ public class DataInitializer {
                         .build()
         );
 
-        memberService.save(
+        memberService.create(
                 Member.builder()
                         .id(UUID.randomUUID())
                         .name("Jarosław")
@@ -42,7 +44,7 @@ public class DataInitializer {
                         .build()
         );
 
-        memberService.save(
+        memberService.create(
                 Member.builder()
                         .id(UUID.randomUUID())
                         .name("Mariusz")
@@ -54,7 +56,7 @@ public class DataInitializer {
                         .build()
         );
 
-        memberService.save(
+        memberService.create(
                 Member.builder()
                         .id(UUID.randomUUID())
                         .name("Joanna")
@@ -66,7 +68,7 @@ public class DataInitializer {
                         .build()
         );
 
-        memberService.save(
+        memberService.create(
                 Member.builder()
                         .id(UUID.randomUUID())
                         .name("Przemysław")
@@ -78,7 +80,7 @@ public class DataInitializer {
                         .build()
         );
 
-        memberService.save(
+        memberService.create(
                 Member.builder()
                         .id(UUID.randomUUID())
                         .name("Radosław")
@@ -90,7 +92,7 @@ public class DataInitializer {
                         .build()
         );
 
-        id = politicalPartyService.save(
+        id = politicalPartyService.create(
                 PoliticalParty.builder()
                         .id(UUID.randomUUID())
                         .name("Platforma_Obywatelska")
@@ -98,7 +100,7 @@ public class DataInitializer {
                         .build()
         );
 
-        memberService.save(
+        memberService.create(
                 Member.builder()
                         .id(UUID.randomUUID())
                         .name("Donald")
@@ -110,7 +112,7 @@ public class DataInitializer {
                         .build()
         );
 
-        memberService.save(
+        memberService.create(
                 Member.builder()
                         .id(UUID.randomUUID())
                         .name("Andrzej")
@@ -122,7 +124,7 @@ public class DataInitializer {
                         .build()
         );
 
-        memberService.save(
+        memberService.create(
                 Member.builder()
                         .id(UUID.randomUUID())
                         .name("Roman")
@@ -134,7 +136,7 @@ public class DataInitializer {
                         .build()
         );
 
-        memberService.save(
+        memberService.create(
                 Member.builder()
                         .id(UUID.randomUUID())
                         .name("Izabela")
@@ -146,7 +148,7 @@ public class DataInitializer {
                         .build()
         );
 
-        memberService.save(
+        memberService.create(
                 Member.builder()
                         .id(UUID.randomUUID())
                         .name("Cezary")
@@ -159,7 +161,7 @@ public class DataInitializer {
 
         );
 
-        id = politicalPartyService.save(
+        id = politicalPartyService.create(
                 PoliticalParty.builder()
                         .id(UUID.randomUUID())
                         .name("Nowa_Nadzieja")
@@ -167,7 +169,7 @@ public class DataInitializer {
                         .build()
         );
 
-        memberService.save(
+        memberService.create(
                 Member.builder()
                         .id(UUID.randomUUID())
                         .name("Sławomir")
@@ -179,7 +181,7 @@ public class DataInitializer {
                         .build()
         );
 
-        memberService.save(
+        memberService.create(
                 Member.builder()
                         .id(UUID.randomUUID())
                         .name("Konrad")
@@ -191,7 +193,7 @@ public class DataInitializer {
                         .build()
         );
 
-        memberService.save(
+        memberService.create(
                 Member.builder()
                         .id(UUID.randomUUID())
                         .name("Przemysław")
@@ -203,7 +205,7 @@ public class DataInitializer {
                         .build()
         );
 
-        memberService.save(
+        memberService.create(
                 Member.builder()
                         .id(UUID.randomUUID())
                         .name("Grzegorz")
@@ -215,7 +217,7 @@ public class DataInitializer {
                         .build()
         );
 
-        memberService.save(
+        memberService.create(
                 Member.builder()
                         .id(UUID.randomUUID())
                         .name("Ryszard")
@@ -227,7 +229,7 @@ public class DataInitializer {
                         .build()
         );
 
-        id = politicalPartyService.save(
+        id = politicalPartyService.create(
                 PoliticalParty.builder()
                         .id(UUID.randomUUID())
                         .name("Ruch_Narodowy")
@@ -235,7 +237,7 @@ public class DataInitializer {
                         .build()
         );
 
-        memberService.save(
+        memberService.create(
                 Member.builder()
                         .id(UUID.randomUUID())
                         .name("Krzysztof")
@@ -247,7 +249,7 @@ public class DataInitializer {
                         .build()
         );
 
-        memberService.save(
+        memberService.create(
                 Member.builder()
                         .id(UUID.randomUUID())
                         .name("Karina")
@@ -259,7 +261,7 @@ public class DataInitializer {
                         .build()
         );
 
-        memberService.save(
+        memberService.create(
                 Member.builder()
                         .id(UUID.randomUUID())
                         .name("Krzysztof")
@@ -272,7 +274,7 @@ public class DataInitializer {
         );
 
 
-        memberService.save(
+        memberService.create(
                 Member.builder()
                         .id(UUID.randomUUID())
                         .name("Michał")
@@ -284,7 +286,7 @@ public class DataInitializer {
                         .build()
         );
 
-        memberService.save(
+        memberService.create(
                 Member.builder()
                         .id(UUID.randomUUID())
                         .name("Witold")
@@ -296,7 +298,7 @@ public class DataInitializer {
                         .build()
         );
 
-        id = politicalPartyService.save(
+        id = politicalPartyService.create(
                 PoliticalParty.builder()
                         .id(UUID.randomUUID())
                         .name("Razem")
@@ -304,7 +306,7 @@ public class DataInitializer {
                         .build()
         );
 
-        memberService.save(
+        memberService.create(
                 Member.builder()
                         .id(UUID.randomUUID())
                         .name("Adrian")
@@ -316,7 +318,7 @@ public class DataInitializer {
                         .build()
         );
 
-        memberService.save(
+        memberService.create(
                 Member.builder()
                         .id(UUID.randomUUID())
                         .name("Marcelina")
@@ -328,7 +330,7 @@ public class DataInitializer {
                         .build()
         );
 
-        memberService.save(
+        memberService.create(
                 Member.builder()
                         .id(UUID.randomUUID())
                         .name("Marta")
@@ -340,7 +342,7 @@ public class DataInitializer {
                         .build()
         );
 
-        memberService.save(
+        memberService.create(
                 Member.builder()
                         .id(UUID.randomUUID())
                         .name("Paulina")
@@ -352,7 +354,7 @@ public class DataInitializer {
                         .build()
         );
 
-        memberService.save(
+        memberService.create(
                 Member.builder()
                         .id(UUID.randomUUID())
                         .name("Maciej")
@@ -365,7 +367,7 @@ public class DataInitializer {
         );
 
 
-        id = politicalPartyService.save(
+        id = politicalPartyService.create(
                 PoliticalParty.builder()
                         .id(UUID.randomUUID())
                         .name("Nowa_Lewica")
@@ -373,7 +375,7 @@ public class DataInitializer {
                         .build()
         );
 
-        memberService.save(
+        memberService.create(
                 Member.builder()
                         .id(UUID.randomUUID())
                         .name("Włodzimierz")
@@ -385,7 +387,7 @@ public class DataInitializer {
                         .build()
         );
 
-        memberService.save(
+        memberService.create(
                 Member.builder()
                         .id(UUID.randomUUID())
                         .name("Agnieszka")
@@ -398,7 +400,7 @@ public class DataInitializer {
         );
 
 
-        memberService.save(
+        memberService.create(
                 Member.builder()
                         .id(UUID.randomUUID())
                         .name("Katarzyna")
@@ -411,7 +413,7 @@ public class DataInitializer {
         );
 
 
-        memberService.save(
+        memberService.create(
                 Member.builder()
                         .id(UUID.randomUUID())
                         .name("Anna")
@@ -424,7 +426,7 @@ public class DataInitializer {
         );
 
 
-        memberService.save(
+        memberService.create(
                 Member.builder()
                         .id(UUID.randomUUID())
                         .name("Tomasz")

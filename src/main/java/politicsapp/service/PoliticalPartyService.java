@@ -2,6 +2,7 @@ package politicsapp.service;
 
 import org.springframework.stereotype.Service;
 import politicsapp.data.PoliticalPartyRepository;
+import politicsapp.model.Member;
 import politicsapp.model.PoliticalParty;
 
 import java.util.UUID;
@@ -14,23 +15,34 @@ public class PoliticalPartyService {
         this.politicalPartyRepository = politicalPartyRepository;
     }
 
-    public UUID save(PoliticalParty politicalParty) {
+    public UUID create(PoliticalParty politicalParty) {
         return politicalPartyRepository.save(politicalParty).getId();
     }
 
-    public PoliticalParty getById(UUID id){
+    public PoliticalParty getById(UUID id) {
         return politicalPartyRepository.findById(id).orElse(null);
     }
 
-    public PoliticalParty getByName(String name){
-        return politicalPartyRepository.findByName(name);
+    public PoliticalParty getByName(String name) {
+        return politicalPartyRepository.findByName(name).orElse(null);
     }
 
-    public Iterable<PoliticalParty> getAll(){
+    public Iterable<PoliticalParty> getAll() {
         return politicalPartyRepository.findAll();
     }
 
-    public void deleteById(UUID id){
+    public void deleteById(UUID id) {
         politicalPartyRepository.deleteById(id);
+    }
+
+    public UUID deleteByName(String name) {
+        PoliticalParty p = politicalPartyRepository.findByName(name).orElse(null);
+        if (p != null) {
+            UUID id = p.getId();
+            politicalPartyRepository.deleteById(id);
+            return id;
+        }else{
+            return null;
+        }
     }
 }
