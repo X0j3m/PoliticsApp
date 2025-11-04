@@ -13,5 +13,4 @@ public class CreateUpdateMemberDto {
     private String dateOfBirth;
     private String placeOfBirth;
     private int constituency;
-    private String politicalParty;
 }

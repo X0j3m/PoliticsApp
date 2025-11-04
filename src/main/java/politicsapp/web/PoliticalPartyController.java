@@ -12,7 +12,6 @@ import politicsapp.web.dto.ReadPoliticalPartyDto;
 import politicsapp.service.PoliticalPartyService;
 
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -55,16 +54,6 @@ public class PoliticalPartyController {
                                 .build()
                 ).toList();
         return ResponseEntity.ok(politicalPartiesDtos);
-    }
-
-    @GetMapping("/political-parties/{name}/members")
-    public ResponseEntity<Iterable<ReadMemberDto>> getMembersByName(@PathVariable String name) {
-        PoliticalParty p = politicalPartyService.getByName(name);
-        List<Member> members = (List<Member>) memberService.findByPoliticalPartyId(p.getId());
-
-        List<ReadMemberDto> memberDtos = ReadMemberDto.mapMembersListToReadMemberDto(members);
-
-        return ResponseEntity.ok(memberDtos);
     }
 
     @DeleteMapping("/political-parties/{name}")

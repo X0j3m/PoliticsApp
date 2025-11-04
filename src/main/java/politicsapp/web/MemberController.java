@@ -24,25 +24,49 @@ public class MemberController {
         this.politicalPartyService = politicalPartyService;
     }
 
-    @GetMapping("/members/{id}")
-    public ResponseEntity<ReadMemberDto> getMember(@PathVariable String id) {
+    @GetMapping("/political-parties/{name}/members/{id}")
+    public ResponseEntity<ReadMemberDto> getMember(@PathVariable String name, @PathVariable String id) {
         Member member = memberService.getById(UUID.fromString(id));
+        PoliticalParty party = politicalPartyService.getByName(name);
+
+        if (party == null) {
+            return ResponseEntity.badRequest().build();
+        }
 
         if (member != null) {
-            ReadMemberDto dto =
-                    ReadMemberDto.builder()
-                            .id(member.getId())
-                            .name(member.getName())
-                            .surname(member.getSurname())
-                            .dateOfBirth(member.getDateOfBirth().toString())
-                            .placeOfBirth(member.getPlaceOfBirth())
-                            .constituency(member.getConstituency())
-                            .politicalParty(member.getPoliticalParty().getName())
-                            .build();
+            if (member.getPoliticalParty().equals(party)) {
+                ReadMemberDto dto =
+                        ReadMemberDto.builder()
+                                .id(member.getId())
+                                .name(member.getName())
+                                .surname(member.getSurname())
+                                .dateOfBirth(member.getDateOfBirth().toString())
+                                .placeOfBirth(member.getPlaceOfBirth())
+                                .constituency(member.getConstituency())
+                                .politicalParty(member.getPoliticalParty().getName())
+                                .build();
 
-            return ResponseEntity.ok(dto);
+                return ResponseEntity.ok(dto);
+            }
+            return ResponseEntity.notFound().build();
         }
         return ResponseEntity.notFound().build();
+    }
+
+
+    @GetMapping("/political-parties/{name}/members")
+    public ResponseEntity<Iterable<ReadMemberDto>> getMembersByName(@PathVariable String name) {
+        PoliticalParty p = politicalPartyService.getByName(name);
+
+        if (p == null) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        List<Member> members = (List<Member>) memberService.findByPoliticalPartyId(p.getId());
+
+        List<ReadMemberDto> memberDtos = ReadMemberDto.mapMembersListToReadMemberDto(members);
+
+        return ResponseEntity.ok(memberDtos);
     }
 
     @GetMapping("/members")
@@ -54,18 +78,33 @@ public class MemberController {
         return ResponseEntity.ok(memberDtos);
     }
 
-    @DeleteMapping("/members/{id}")
-    public ResponseEntity<Void> deleteMember(@PathVariable String id) {
-        UUID uuid = memberService.deleteById(UUID.fromString(id));
-        if (uuid != null) {
-            return ResponseEntity.noContent().build();
+    @DeleteMapping("/political-parties/{name}/members/{id}")
+    public ResponseEntity<Void> deleteMember(@PathVariable String name, @PathVariable String id) {
+        PoliticalParty politicalParty = politicalPartyService.getByName(name);
+
+        if (politicalParty == null) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        Member member = memberService.getById(UUID.fromString(id));
+
+        if (member != null) {
+            if (member.getPoliticalParty().equals(politicalParty)) {
+                memberService.deleteById(UUID.fromString(id));
+                return ResponseEntity.noContent().build();
+            }
+            ResponseEntity.notFound().build();
         }
         return ResponseEntity.notFound().build();
     }
 
-    @PutMapping("/members/{id}")
-    public ResponseEntity<Void> updateMember(@PathVariable UUID id, @RequestBody CreateUpdateMemberDto dto) {
-        PoliticalParty p = politicalPartyService.getByName(dto.getPoliticalParty());
+    @PutMapping("/political-parties/{name}/members/{id}")
+    public ResponseEntity<Void> updateMember(@PathVariable String name, @PathVariable UUID id, @RequestBody CreateUpdateMemberDto dto) {
+        PoliticalParty p = politicalPartyService.getByName(name);
+
+        if (p == null) {
+            return ResponseEntity.badRequest().build();
+        }
 
         Member updated =
                 Member.builder()
@@ -78,7 +117,7 @@ public class MemberController {
                         .politicalParty(p)
                         .build();
         memberService.create(updated);
-        return ResponseEntity.created(URI.create("/members/" + id)).build();
+        return ResponseEntity.created(URI.create("/political-parties/" + name + "/members/" + id)).build();
 
     }
 }
