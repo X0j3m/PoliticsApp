@@ -1,6 +1,7 @@
 package politicsapp.web;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 public class PoliticalPartyController {
@@ -34,8 +36,10 @@ public class PoliticalPartyController {
                             .dateOfEstablishment(found.getDateOfEstablishment().toString())
                             .build();
 
+            log.info("Party found: {}", dto);
             return ResponseEntity.ok(dto);
         }
+        log.info("Party not found");
         return ResponseEntity.notFound().build();
     }
 
@@ -50,6 +54,7 @@ public class PoliticalPartyController {
                                 .dateOfEstablishment(p.getDateOfEstablishment().toString())
                                 .build()
                 ).toList();
+        log.info("All parties found: {}", politicalPartiesDtos);
         return ResponseEntity.ok(politicalPartiesDtos);
     }
 
@@ -64,8 +69,10 @@ public class PoliticalPartyController {
                             .id(foundId)
                             .build()
             );
+            log.info("Party {} deleted", id);
             return ResponseEntity.noContent().build();
         } else {
+            log.info("Party {} not found", id);
             return ResponseEntity.notFound().build();
         }
     }
@@ -84,6 +91,7 @@ public class PoliticalPartyController {
                         .id(id)
                         .build()
         );
+        log.info("Party {} updated", id);
         return ResponseEntity.created(URI.create("/political-parties/" + id)).build();
     }
 }

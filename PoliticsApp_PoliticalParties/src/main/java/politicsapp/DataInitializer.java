@@ -20,7 +20,7 @@ public class DataInitializer {
         politicalPartyService.create(
                 PoliticalParty.builder()
                         .id(UUID.nameUUIDFromBytes("prawo_i_sprawiedliwosc".getBytes()))
-                        .name("Prawo_i_Sprawiedliwość")
+                        .name("Prawo i Sprawiedliwość")
                         .dateOfEstablishment(LocalDate.of(2001, 5, 29))
                         .build()
         );
@@ -28,7 +28,7 @@ public class DataInitializer {
         politicalPartyService.create(
                 PoliticalParty.builder()
                         .id(UUID.nameUUIDFromBytes("platforma_obywatelska".getBytes()))
-                        .name("Platforma_Obywatelska")
+                        .name("Platforma Obywatelska")
                         .dateOfEstablishment(LocalDate.of(2001, 1, 24))
                         .build()
         );
@@ -36,7 +36,7 @@ public class DataInitializer {
         politicalPartyService.create(
                 PoliticalParty.builder()
                         .id(UUID.nameUUIDFromBytes("nowa_nadzieja".getBytes()))
-                        .name("Nowa_Nadzieja")
+                        .name("Nowa Nadzieja")
                         .dateOfEstablishment(LocalDate.of(2015, 1, 22))
                         .build()
         );
@@ -44,7 +44,7 @@ public class DataInitializer {
         politicalPartyService.create(
                 PoliticalParty.builder()
                         .id(UUID.nameUUIDFromBytes("ruch_narodowy".getBytes()))
-                        .name("Ruch_Narodowy")
+                        .name("Ruch Narodowy")
                         .dateOfEstablishment(LocalDate.of(2012, 11, 11))
                         .build()
         );
@@ -60,7 +60,7 @@ public class DataInitializer {
         politicalPartyService.create(
                 PoliticalParty.builder()
                         .id(UUID.nameUUIDFromBytes("nowa_lewica".getBytes()))
-                        .name("Nowa_Lewica")
+                        .name("Nowa Lewica")
                         .dateOfEstablishment(LocalDate.of(2021, 10, 9))
                         .build()
         );
