@@ -20,11 +20,12 @@ import java.util.UUID;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api")
 public class PoliticalPartyController {
     private final PoliticalPartyService politicalPartyService;
     private final ApplicationEventPublisher publisher;
 
-    @GetMapping("political-parties/{id}")
+    @GetMapping("/political-parties/{id}")
     public ResponseEntity<ReadPoliticalPartyDto> getPartyByName(@PathVariable String id) {
         PoliticalParty found = politicalPartyService.getById(UUID.fromString(id));
 

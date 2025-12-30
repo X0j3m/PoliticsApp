@@ -18,6 +18,7 @@ public class ReadMemberDto{
     private String dateOfBirth;
     private String placeOfBirth;
     private int constituency;
+    private UUID politicalPartyId;
 
     public static List<ReadMemberDto> mapMembersListToReadMemberDto(List<Member> members) {
         return members.stream().map(m ->
@@ -28,6 +29,7 @@ public class ReadMemberDto{
                         .dateOfBirth(m.getDateOfBirth().toString())
                         .placeOfBirth(m.getPlaceOfBirth())
                         .constituency(m.getConstituency())
+                        .politicalPartyId(m.getSimplifiedPoliticalPartyId().getId())
                         .build()
         ).toList();
     }

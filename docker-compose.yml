@@ -1,0 +1,108 @@
+services:
+  political-parties-db:
+    image: mysql:8.0
+    container_name: political_parties_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: politics_parties
+    volumes:
+      - parties_data:/var/lib/mysql
+      - ./political_parties_dump.sql:/docker-entrypoint-initdb.d/init.sql # MAPOWANIE DUMPA
+    networks:
+      - app-network
+
+  members-db:
+    image: mysql:8.0
+    container_name: members_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: politics_members
+    volumes:
+      - members_data:/var/lib/mysql
+      - ./members_dump.sql:/docker-entrypoint-initdb.d/init.sql # MAPOWANIE DUMPA
+    networks:
+      - app-network
+
+  frontend:
+    build:
+      context: ./PoliticsApp-AngularFrontend
+      dockerfile: Dockerfile
+    container_name: angular_frontend
+    restart: always
+    ports:
+      - "4200:80"
+    environment:
+      # POPRAWKA: skierowanie na usługę gateway
+      - API_URL=http://gateway:8080
+    networks:
+      - app-network
+    depends_on:
+      - gateway
+
+  political-parties-service:
+    build: ./PoliticsApp_PoliticalParties
+    container_name: political_parties_service
+    restart: on-failure
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://political-parties-db:3306/politics_parties?allowPublicKeyRetrieval=true&useSSL=false
+      - SPRING_DATASOURCE_DRIVER=com.mysql.cj.jdbc.Driver
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root_password
+      - SPRING_JPA_DIALECT=org.hibernate.dialect.MySQL8Dialect
+      - SPRING_JPA_DDL=update
+    depends_on:
+      - political-parties-db
+    networks:
+      - app-network
+
+  members-service:
+    build: ./PoliticsApp_Members
+    container_name: members_service
+    restart: on-failure
+    environment:
+      # POPRAWKA: zmiana nazwy bazy na politics_members
+      - SPRING_DATASOURCE_URL=jdbc:mysql://members-db:3306/politics_members?allowPublicKeyRetrieval=true&useSSL=false
+      - SPRING_DATASOURCE_DRIVER=com.mysql.cj.jdbc.Driver
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root_password
+      - SPRING_JPA_DIALECT=org.hibernate.dialect.MySQL8Dialect
+      - SPRING_JPA_DDL=update
+    depends_on:
+      - members-db
+    networks:
+      - app-network
+
+  gateway:
+    build: ./Gateway
+    container_name: spring_gateway
+    ports:
+      - "8080:8080"
+    environment:
+      - MEMBERS_SERVICE_URL=http://members-service:8081
+      - PARTIES_SERVICE_URL=http://political-parties-service:8082
+      - GATEWAY_HOST=spring_gateway:8080
+    networks:
+      - app-network
+    depends_on:
+      - members-service
+      - political-parties-service
+  adminer:
+      image: adminer
+      container_name: adminer_gui
+      restart: always
+      ports:
+        - "8085:8080"
+      networks:
+        - app-network
+      depends_on:
+        - political-parties-db
+        - members-db
+volumes:
+  parties_data:
+  members_data:
+
+networks:
+  app-network:
+    driver: bridge

@@ -11,32 +11,18 @@ public class GatewayConfig {
     @Bean
     public RouteLocator routeLocator(
             RouteLocatorBuilder builder,
-            @Value("${rpg.members.url}") String membersUrl,
-            @Value("${rpg.political-parties.url}") String partiesUrl,
-            @Value("${rpg.gateway.host}") String host
+            @Value("${politicsapp.members.url}") String membersUrl,
+            @Value("${politicsapp.political-parties.url}") String partiesUrl
     ) {
-        return builder
-                .routes()
-                .route("political-parties", route -> route
-                        .host(host)
-                        .and()
-                        .path(
-                                "/political-parties/{id}",
-                                "/political-parties"
-                        )
-                        .uri(partiesUrl)
-                )
-                .route("members", route -> route
-                        .host(host)
-                        .and()
-                        .path(
-                                "/political-parties/{party_id}/members",
-                                "/political-parties/{party_id}/members/{id}",
-                                "/members"
-                        )
+        return builder.routes()
+                .route("members-route", r -> r
+                        .path("/api/political-parties/*/members/**", "/api/members/**")
                         .uri(membersUrl)
                 )
+                .route("parties-route", r -> r
+                        .path("/api/political-parties/**")
+                        .uri(partiesUrl)
+                )
                 .build();
-
     }
 }

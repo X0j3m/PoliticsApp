@@ -1,6 +1,7 @@
 package politicsapp.web;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import politicsapp.LocalDateCreator;
@@ -15,8 +16,10 @@ import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api")
 public class MemberController {
     private final MemberService memberService;
     private final SimplifiedPoliticalPartyService simplifiedPoliticalPartyService;
@@ -27,6 +30,7 @@ public class MemberController {
         SimplifiedPoliticalParty partyId = simplifiedPoliticalPartyService.findById(UUID.fromString(party_id));
 
         if (partyId == null) {
+            log.error("Party {} not found", party_id);
             return ResponseEntity.badRequest().build();
         }
 
@@ -40,12 +44,16 @@ public class MemberController {
                                 .dateOfBirth(member.getDateOfBirth().toString())
                                 .placeOfBirth(member.getPlaceOfBirth())
                                 .constituency(member.getConstituency())
+                                .politicalPartyId(member.getSimplifiedPoliticalPartyId().getId())
                                 .build();
 
+                log.info("Member found: {}", dto);
                 return ResponseEntity.ok(dto);
             }
+            log.info("Member not found");
             return ResponseEntity.notFound().build();
         }
+        log.info("Member not found");
         return ResponseEntity.notFound().build();
     }
 
@@ -55,6 +63,7 @@ public class MemberController {
         SimplifiedPoliticalParty partyId = simplifiedPoliticalPartyService.findById(UUID.fromString(party_id));
 
         if (partyId == null) {
+            log.error("Party {} not found", party_id);
             return ResponseEntity.badRequest().build();
         }
 
@@ -62,6 +71,7 @@ public class MemberController {
 
         List<ReadMemberDto> memberDtos = ReadMemberDto.mapMembersListToReadMemberDto(members);
 
+        log.info("Members found: {}", memberDtos);
         return ResponseEntity.ok(memberDtos);
     }
 
@@ -71,6 +81,7 @@ public class MemberController {
 
         List<ReadMemberDto> memberDtos = ReadMemberDto.mapMembersListToReadMemberDto(members);
 
+        log.info("Members found: {}", memberDtos);
         return ResponseEntity.ok(memberDtos);
     }
 
@@ -79,6 +90,7 @@ public class MemberController {
         SimplifiedPoliticalParty partyId = simplifiedPoliticalPartyService.findById(UUID.fromString(party_id));
 
         if (partyId == null) {
+            log.error("Party {} not found", party_id);
             return ResponseEntity.badRequest().build();
         }
 
@@ -87,10 +99,13 @@ public class MemberController {
         if (member != null) {
             if (member.getSimplifiedPoliticalPartyId().equals(partyId)) {
                 memberService.deleteById(UUID.fromString(id));
+                log.info("Member {} deleted", id);
                 return ResponseEntity.noContent().build();
             }
+            log.info("Member not found");
             ResponseEntity.notFound().build();
         }
+        log.info("Member not found");
         return ResponseEntity.notFound().build();
     }
 
@@ -99,6 +114,7 @@ public class MemberController {
         SimplifiedPoliticalParty partyId = simplifiedPoliticalPartyService.findById(UUID.fromString(party_id));
 
         if (partyId == null) {
+            log.error("Party {} not found", party_id);
             return ResponseEntity.badRequest().build();
         }
 
@@ -106,6 +122,7 @@ public class MemberController {
                 member -> memberService.deleteById(member.getId())
         );
 
+        log.info("All members of party {} deleted", party_id);
         return ResponseEntity.notFound().build();
     }
 
@@ -114,6 +131,7 @@ public class MemberController {
         SimplifiedPoliticalParty partyId = simplifiedPoliticalPartyService.findById(UUID.fromString(party_id));
 
         if (partyId == null) {
+            log.error("Party {} not found", party_id);
             return ResponseEntity.badRequest().build();
         }
 
@@ -128,6 +146,7 @@ public class MemberController {
                         .simplifiedPoliticalPartyId(partyId)
                         .build();
         memberService.create(updated);
+        log.info("Member {} updated", id);
         return ResponseEntity.created(URI.create("/political-parties/" + party_id + "/members/" + id)).build();
 
     }

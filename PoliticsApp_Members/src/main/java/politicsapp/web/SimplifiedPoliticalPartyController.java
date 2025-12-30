@@ -13,6 +13,7 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api")
 public class SimplifiedPoliticalPartyController {
     private final MemberService memberService;
     private final SimplifiedPoliticalPartyService simplifiedPoliticalPartyService;
