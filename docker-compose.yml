@@ -8,7 +8,7 @@ services:
       MYSQL_DATABASE: politics_parties
     volumes:
       - parties_data:/var/lib/mysql
-      - ./political_parties_dump.sql:/docker-entrypoint-initdb.d/init.sql # MAPOWANIE DUMPA
+      - ./political_parties_dump.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - app-network
 
@@ -21,7 +21,7 @@ services:
       MYSQL_DATABASE: politics_members
     volumes:
       - members_data:/var/lib/mysql
-      - ./members_dump.sql:/docker-entrypoint-initdb.d/init.sql # MAPOWANIE DUMPA
+      - ./members_dump.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - app-network
 
@@ -34,7 +34,6 @@ services:
     ports:
       - "4200:80"
     environment:
-      # POPRAWKA: skierowanie na usługę gateway
       - API_URL=http://gateway:8080
     networks:
       - app-network
@@ -62,7 +61,6 @@ services:
     container_name: members_service
     restart: on-failure
     environment:
-      # POPRAWKA: zmiana nazwy bazy na politics_members
       - SPRING_DATASOURCE_URL=jdbc:mysql://members-db:3306/politics_members?allowPublicKeyRetrieval=true&useSSL=false
       - SPRING_DATASOURCE_DRIVER=com.mysql.cj.jdbc.Driver
       - SPRING_DATASOURCE_USERNAME=root
