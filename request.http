@@ -1,0 +1,115 @@
+### Create political party
+
+PUT http://localhost:8080/political-parties/f500a4ae-6111-4427-b8b0-074ee1226271
+Content-Type: application/json
+
+{
+  "name": "Nowa_Partia",
+  "dateOfEstablishment": "2025-01-01"
+}
+
+### Update created political party
+
+PUT http://localhost:8080/political-parties/f500a4ae-6111-4427-b8b0-074ee1226271
+Content-Type: application/json
+
+{
+  "name": "Nowa_Partia",
+  "dateOfEstablishment": "2024-04-04"
+}
+
+### Delete created political party with members
+
+DELETE http://localhost:8080/political-parties/f500a4ae-6111-4427-b8b0-074ee1226271
+
+### Get all political parties
+
+GET http://localhost:8080/political-parties
+
+### Get created political party
+
+GET http://localhost:8080/political-parties/f500a4ae-6111-4427-b8b0-074ee1226271
+
+### Get not existing political party
+
+GET http://localhost:8080/political-parties/11111111-1111-1111-1111-111111111111
+
+### Get created political party members
+
+GET http://localhost:8080/political-parties/f500a4ae-6111-4427-b8b0-074ee1226271/members
+
+### Get not existing political party members
+
+GET http://localhost:8080/political-parties/11111111-1111-1111-1111-111111111111/members
+
+### Create member 1
+
+PUT http://localhost:8080/political-parties/f500a4ae-6111-4427-b8b0-074ee1226271/members/5dc7b047-512e-41ae-b7d4-a0cab18c54f2
+Content-Type: application/json
+
+{
+  "name": "Jan",
+  "surname": "Kowalski",
+  "dateOfBirth": "1999-01-01",
+  "placeOfBirth": "Gdańsk",
+  "constituency": 25
+}
+
+### Update member 1
+
+PUT http://localhost:8080/political-parties/f500a4ae-6111-4427-b8b0-074ee1226271/members/5dc7b047-512e-41ae-b7d4-a0cab18c54f2
+Content-Type: application/json
+
+{
+  "name": "Jan",
+  "surname": "Kowalski",
+  "dateOfBirth": "1999-09-09",
+  "placeOfBirth": "Wrocław",
+  "constituency": 1
+}
+
+### Create member 2
+
+PUT http://localhost:8080/political-parties/f500a4ae-6111-4427-b8b0-074ee1226271/members/7d6c4186-d08c-498f-8e15-e671e843894b
+Content-Type: application/json
+
+{
+  "name": "Adam",
+  "surname": "Nowak",
+  "dateOfBirth": "2001-05-20",
+  "placeOfBirth": "Rzeszów",
+  "constituency": 22
+}
+
+### Create member 3
+
+PUT http://localhost:8080/political-parties/f500a4ae-6111-4427-b8b0-074ee1226271/members/abf44d18-6405-4192-8700-0e4b086c9caf
+Content-Type: application/json
+
+{
+  "name": "Grzegorz",
+  "surname": "Wiśniewski",
+  "dateOfBirth": "1986-12-07",
+  "placeOfBirth": "Lublin",
+  "constituency": 6
+}
+
+### Get all members
+
+GET http://localhost:8080/members
+
+### Get created member 1
+
+GET http://localhost:8080/political-parties/f500a4ae-6111-4427-b8b0-074ee1226271/members/5dc7b047-512e-41ae-b7d4-a0cab18c54f2
+
+### Get not existing member
+
+GET http://localhost:8080/political-parties/f500a4ae-6111-4427-b8b0-074ee1226271/members/11111111-1111-1111-1111-111111111111
+
+### Delete created member 1
+
+DELETE http://localhost:8080/political-parties/f500a4ae-6111-4427-b8b0-074ee1226271/members/5dc7b047-512e-41ae-b7d4-a0cab18c54f2
+
+### Delete not existing member
+
+DELETE http://localhost:8080/political-parties/f500a4ae-6111-4427-b8b0-074ee1226271/members/11111111-1111-1111-1111-111111111111

@@ -1,0 +1,12 @@
+td, th {
+  border: 1px solid black;
+}
+
+.actions{
+  border: none;
+}
+
+.link {
+  cursor: pointer;
+}
+

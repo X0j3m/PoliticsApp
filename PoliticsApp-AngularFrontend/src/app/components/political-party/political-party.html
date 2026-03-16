@@ -1,0 +1,17 @@
+<div>
+  <button routerLink="/political-parties">Cofnij</button>
+  <div>
+    ID:
+    {{ politicalParty().id }}
+  </div>
+  <div>
+    Nazwa:
+    {{ politicalParty().name }}
+  </div>
+  <div>
+    Data założenia:
+    {{ politicalParty().dateOfEstablishment }}
+  </div>
+  <span>Członkowie:</span>
+  <app-members [partyId]="politicalParty().id"/>
+</div>

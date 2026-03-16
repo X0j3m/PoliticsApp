@@ -1,0 +1,26 @@
+<div>
+  <table>
+    <tr>
+      <th>Nazwa</th>
+      <th>Data założenia</th>
+    </tr>
+
+    @for (party of politicalParties(); track party.id) {
+      <tr>
+        <td>{{ party.name }}</td>
+        <td>{{ party.dateOfEstablishment }}</td>
+        <td class="actions">
+          <button routerLink="/political-parties/edit/{{ party.id }}">Edytuj</button>
+        </td>
+        <td class="actions">
+          <button (click)="delete(party.id)">Usuń</button>
+        </td>
+        <td class="actions">
+          <button routerLink="/political-parties/{{ party.id }}">Szczegóły</button>
+        </td>
+      </tr>
+    }
+  </table>
+
+  <button routerLink="/political-parties/create">Utwórz nową partię</button>
+</div>

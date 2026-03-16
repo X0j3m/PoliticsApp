@@ -1,0 +1,30 @@
+<form [formGroup]="politicalPartyForm" (submit)="submitForm()" >
+  <div>
+    <label for="id">ID </label>
+  </div>
+  <div>
+    <input type="text" id="id" name="id" formControlName="id"/>
+  </div>
+  <div>
+    <label for="name">Nazwa </label>
+  </div>
+  <div>
+    <input type="text" id="name" name="name" formControlName="name"/>
+  </div>
+  <div>
+    <label for="dateOfEstablishment">Data założenia </label>
+  </div>
+  <div>
+    <input type="date" id="dateOfEstablishment" name="dateOfEstablishment" formControlName="dateOfEstablishment"/>
+  </div>
+  <table>
+    <tr>
+      <td>
+        <button type="submit">Zapisz</button>
+      </td>
+      <td>
+        <button routerLink="/political-parties">Anuluj</button>
+      </td>
+    </tr>
+  </table>
+</form>

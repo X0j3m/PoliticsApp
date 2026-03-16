@@ -1,0 +1,31 @@
+<div>
+  <table>
+    <tr>
+      <th>Imię</th>
+      <th>Nazwisko</th>
+      <th>Data urodzenia</th>
+      <th>Miejsce urodzenia</th>
+      <th>Okręg wyborczy</th>
+    </tr>
+
+    @for (member of members(); track member.id) {
+      <tr>
+        <td>{{ member.name }}</td>
+        <td>{{ member.surname }}</td>
+        <td>{{ member.dateOfBirth }}</td>
+        <td>{{ member.placeOfBirth }}</td>
+        <td>{{ member.constituency }}</td>
+        <td class="actions">
+          <button routerLink="/political-parties/{{ partyId }}/members/{{ member.id }}/edit">Edytuj</button>
+        </td>
+        <td class="actions">
+          <button (click)="delete(partyId, member.id)">Usuń</button>
+        </td>
+        <td class="actions">
+          <button routerLink="/political-parties/{{ partyId }}/members/{{ member.id }}">Szczegóły</button>
+        </td>
+      </tr>
+    }
+  </table>
+  <button routerLink="/political-parties/{{ partyId }}/members/create">Utwórz nowego członka</button>
+</div>

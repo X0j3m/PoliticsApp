@@ -1,0 +1,76 @@
+<button routerLink="/political-parties/{{politicalParty().id}}">Cofnij</button>
+
+<table>
+  <tr>
+    <td>
+      ID
+    </td>
+    <td>
+      {{ member().id }}
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Imię
+    </td>
+    <td>
+      {{ member().name }}
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Nazwisko
+    </td>
+    <td>
+      {{ member().surname }}
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Data urodzenia
+    </td>
+    <td>
+      {{ member().dateOfBirth }}
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Miejsce urodzenia
+    </td>
+    <td>
+      {{ member().placeOfBirth }}
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Okręg wyborczy
+    </td>
+    <td>
+      {{ member().constituency }}
+    </td>
+  </tr>
+  <tr>
+    <td>
+      ID partii politycznej
+    </td>
+    <td>
+      {{ member().politicalPartyId }}
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Nazwa partii politycznej
+    </td>
+    <td>
+      {{ politicalParty().name }}
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Data założenia partii politycznej
+    </td>
+    <td>
+      {{ politicalParty().dateOfEstablishment }}
+    </td>
+  </tr>
+</table>
